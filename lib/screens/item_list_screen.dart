@@ -43,7 +43,10 @@ class _ItemListScreenState extends State<ItemListScreen> {
           }
 
           final categories = ['All', ...itemService.categories];
-          final filteredItems = itemService.getFilteredItems(_searchQuery, _selectedCategory);
+          final filteredItems = itemService.getFilteredItems(
+            _searchQuery,
+            _selectedCategory,
+          );
 
           return Column(
             children: [
@@ -102,25 +105,39 @@ class _ItemListScreenState extends State<ItemListScreen> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+                            Text(
+                              item.description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                             SizedBox(height: 4),
                             Row(
                               children: [
-                                Text('\$${item.price.toStringAsFixed(2)}', 
-                                     style: TextStyle(fontWeight: FontWeight.bold)),
+                                Text(
+                                  '\$${item.price.toStringAsFixed(2)}',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 Spacer(),
                                 Icon(Icons.star, color: Colors.amber, size: 16),
                                 Text('${item.rating}'),
                                 SizedBox(width: 8),
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: item.inStock ? Colors.green : Colors.red,
+                                    color: item.inStock
+                                        ? Colors.green
+                                        : Colors.red,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     item.inStock ? 'In Stock' : 'Out of Stock',
-                                    style: TextStyle(color: Colors.white, fontSize: 12),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -131,7 +148,8 @@ class _ItemListScreenState extends State<ItemListScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ItemDetailScreen(item: item),
+                              builder: (context) =>
+                                  ItemDetailScreen(item: item),
                             ),
                           );
                         },
